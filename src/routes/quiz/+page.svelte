@@ -3,6 +3,7 @@
   import { ChevronLeft, ChevronRight } from "lucide-svelte";
   import Input from "$lib/components/ui/input/input.svelte";
   import { Button } from "$lib/components/ui/button";
+  import { goto } from "$app/navigation";
 
   let step = 1;
   let appGender: string;
@@ -42,6 +43,15 @@
 
     step++;
   };
+
+  const drinkingWaterHandler = (waterAmount: number) => {
+    appDrinkingWater = waterAmount;
+
+    const suitableAmount = appWeight * 0.5 * 2.2 * 30; // น้ำที่เหมาะสมต่อวัน (ml)
+    const waterAmountInLitre = waterAmount * 250; // น้ำที่ดื่มต่อวัน (ml)
+
+    goto(`/result?suit=${suitableAmount}&real=${waterAmountInLitre}`);
+  };
 </script>
 
 <main
@@ -55,7 +65,6 @@
       <ChevronLeft class="w-8 h-8" />
     </button>
   {/if}
-  
 
   {#if step === 1}
     <h1 class="font-bold text-4xl">เพศของคุณ</h1>
@@ -67,25 +76,61 @@
 
   {#if step === 2}
     <h1 class="font-bold text-4xl">อายุของคุณ</h1>
-    <Input class="w-24 h-24 text-center !text-3xl font-bold" type="number" bind:value={appAge} placeholder="20" />
+    <Input
+      class="w-24 h-24 text-center !text-3xl font-bold"
+      type="number"
+      bind:value={appAge}
+      placeholder="20"
+    />
     <Button on:click={ageHandler}>ตกลง</Button>
   {/if}
 
   {#if step === 3}
     <h1 class="font-bold text-4xl">น้ำหนักของคุณ (กก.)</h1>
-    <Input class="w-24 h-24 text-center !text-3xl font-bold" type="number" bind:value={appWeight} placeholder="40" />
+    <Input
+      class="w-24 h-24 text-center !text-3xl font-bold"
+      type="number"
+      bind:value={appWeight}
+      placeholder="40"
+    />
     <Button on:click={weightHandler}>ตกลง</Button>
   {/if}
 
   {#if step === 4}
     <h1 class="font-bold text-4xl">ปริมาณน้ำที่ดื่มต่อวัน</h1>
     <div class="grid grid-cols-3 gap-4">
-      <Card picture="/1-bottle.png" text="1 ขวด" containerClass="p-4" imgClass="h-8" />
-      <Card picture="/2-bottle.png" text="2 ขวด" />
-      <Card picture="/3-bottle.png" text="3 ขวด" />
-      <Card picture="/4-bottle.png" text="4-5 ขวด" />
-      <Card picture="/6-bottle.png" text="6-7 ขวด" />
-      <Card picture="/7-bottle.png" text="มากกว่า 7 ขวด" />
+      <Card
+        picture="/1-bottle.png"
+        text="1 ขวด"
+        containerClass="p-4"
+        imgClass="h-8"
+        on:click={() => drinkingWaterHandler(1)}
+      />
+      <Card
+        picture="/2-bottle.png"
+        text="2 ขวด"
+        on:click={() => drinkingWaterHandler(2)}
+      />
+      <Card
+        picture="/3-bottle.png"
+        text="3 ขวด"
+        on:click={() => drinkingWaterHandler(3)}
+      />
+      <Card
+        picture="/4-bottle.png"
+        text="4-5 ขวด"
+        on:click={() => drinkingWaterHandler(4.5)}
+      />
+      <Card
+        picture="/6-bottle.png"
+        text="6-7 ขวด"
+        on:click={() => drinkingWaterHandler(6.5)}
+      />
+      <Card
+        picture="/7-bottle.png"
+        text="มากกว่า 7 ขวด"
+        on:click={() => drinkingWaterHandler(8)}
+      />
     </div>
   {/if}
 </main>
