@@ -1,5 +1,7 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import Button from "$lib/components/ui/button/button.svelte";
+  import { Share2, Sticker } from "lucide-svelte";
   import { onMount } from "svelte";
 
   let status: "too-low" | "normal" | "too-high" = "normal";
@@ -75,5 +77,15 @@
         เพื่อให้ร่างกายได้รับน้ำในปริมาณที่พอดีดีกว่า! 💧✨
       </p>
     {/if}
+
+    <div class="flex gap-8 relative">
+      <Button class="border-2 flex gap-2" variant="outline"
+        ><Share2 size={16} />แชร์ผลลัพธ์</Button
+      >
+      <Button class="border-2 flex gap-2" variant="outline"
+        ><Sticker size={16} />สมัครสมาชิก</Button
+      >
+	  <img class="w-72 hidden md:block absolute bottom-0 right-0 translate-x-[100%] translate-y-[30%]" src="/note.png" alt="note">
+    </div>
   </div>
 </main>
