@@ -4,7 +4,7 @@
   import Input from "$lib/components/ui/input/input.svelte";
   import { Button } from "$lib/components/ui/button";
 
-  let step = 4;
+  let step = 1;
   let appGender: string;
   let appAge: number;
   let appWeight: number;
