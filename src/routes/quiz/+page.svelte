@@ -47,8 +47,8 @@
   const drinkingWaterHandler = (waterAmount: number) => {
     appDrinkingWater = waterAmount;
 
-    const suitableAmount = appWeight * 0.5 * 2.2 * 30; // น้ำที่เหมาะสมต่อวัน (ml)
-    const waterAmountInLitre = waterAmount * 250; // น้ำที่ดื่มต่อวัน (ml)
+    const suitableAmount = Math.round(appWeight * 0.5 * 2.2 * 30); // น้ำที่เหมาะสมต่อวัน (ml)
+    const waterAmountInLitre = Math.round(waterAmount * 250); // น้ำที่ดื่มต่อวัน (ml)
 
     goto(`/result?suit=${suitableAmount}&real=${waterAmountInLitre}`);
   };
